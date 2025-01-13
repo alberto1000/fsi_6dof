@@ -20,7 +20,7 @@ surfaceFeatureExtract
 sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
 decomposePar
 # mpirun -np 32 snappyHexMesh -parallel -overwrite
-srun -n"$1" snappyHexMesh -parallel -overwrite
+srun -n"$1" --cpu-bind=cores snappyHexMesh -parallel -overwrite
 reconstructParMesh -constant
 topoSet
 checkMesh
@@ -39,7 +39,7 @@ touch mesh_assembled.foam
 sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
 decomposePar
 # mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
-srun -n"$1" overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
+srun -n"$1" --cpu-bind=cores overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
 
 # Reconstruct final mesh and open ParaView for visualization
 # reconstructPar
