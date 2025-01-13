@@ -1,0 +1,19 @@
+cat log.simulation | grep -w 'Time =' | cut -d' ' -f3 | tr -d '(' > time
+cat log.simulation | grep 'of mass' | cut -d' ' -f8 | tr -d '('  > xcenter
+cat log.simulation | grep 'of mass' | cut -d' ' -f9 | tr -d '('  > ycenter
+cat log.simulation | grep 'of mass' | cut -d' ' -f10 | tr -d ')'  > zcenter
+cat log.simulation | grep 'Linear' | cut -d' ' -f7 | tr -d '(' > vx
+cat log.simulation | grep 'Linear' | cut -d' ' -f8 | tr -d ' ' > vy
+cat log.simulation | grep 'Linear' | cut -d' ' -f9 | tr -d ')' > vz
+cat log.simulation | grep 'Angular' | cut -d' ' -f7 | tr -d '(' > wx
+cat log.simulation | grep 'Angular' | cut -d' ' -f8 | tr -d '(' > wy
+cat log.simulation | grep 'Angular' | cut -d' ' -f9 | tr -d ')' > wz
+cat log.simulation | grep "Courant Number" | awk '{print $4}' > Co_mean
+cat log.simulation | grep "Courant Number" | awk '{print $6}' > Co_max
+cat log.simulation | grep 'Solving for Ux' | cut -d' ' -f9 | tr -d ',' > Ux_res
+cat log.simulation | grep 'Solving for Uy' | cut -d' ' -f9 | tr -d ',' > Uy_res
+cat log.simulation | grep 'Solving for Uz' | cut -d' ' -f9 | tr -d ',' > Uz_res
+cat log.simulation | grep 'Solving for omega' | cut -d' ' -f9 | tr -d ',' > w_res
+cat log.simulation | grep 'Solving for k' | cut -d' ' -f9 | tr -d ',' > k_res
+cat log.simulation | grep 'Solving for p' | cut -d' ' -f9 | tr -d ',' > p_res
+paste time xcenter ycenter zcenter vx vy vz wx wy wz Co_mean Co_max Ux_res Uy_res Uz_res w_res k_res p_res > plotfile

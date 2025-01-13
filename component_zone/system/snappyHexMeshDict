@@ -1,0 +1,155 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2406                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      snappyHexMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// Which of the steps to run
+castellatedMesh true;
+snap            true;
+addLayers       false;
+
+// Geometry. Definition of all surfaces. All surfaces are of class
+// searchableSurface.
+geometry
+{
+    seed.stl
+    {
+        type triSurfaceMesh;
+        name seed;
+    }
+    
+}
+
+
+// Settings for the castellatedMesh generation.
+castellatedMeshControls
+{
+
+    // Refinement parameters
+    maxLocalCells 2000;  // Increased to allow more cells
+    maxGlobalCells 247000; // Increase to refine smaller details
+
+    minRefinementCells 3;  // Allow for finer refinement
+
+    nCellsBetweenLevels 2;  // Finer control over the refinement levels
+
+    // Explicit feature edge refinement
+    features
+    (
+        {
+            file "seed.eMesh";
+            level 4; // 8
+        }
+    );
+
+    // Surface based refinement
+    refinementSurfaces
+    {
+        seed
+        {
+            // Surface-wise min and max refinement level
+            level (20 21);  // (11 12) 
+
+            patchInfo
+            {
+                type wall;
+                inGroups (seed);
+            }
+        }
+    }
+
+    // Resolve sharp angles
+    resolveFeatureAngle 20;  // Refine more around sharp features
+
+    refinementRegions
+    {
+    }
+
+    locationInMesh ( 0.00 0.00 0.015);  // Adjusted to ensure correct location in the mesh
+
+    allowFreeStandingZoneFaces true;
+}
+
+
+// Settings for the snapping.
+snapControls
+{
+    nSmoothPatch 10;
+    tolerance 1.2;  // Adjusted tolerance for better snapping
+    nSolveIter 70;  // Increased iterations for smoother snapping
+    nRelaxIter 18;  // More relaxation iterations
+
+    nFeatureSnapIter 45;  // Higher iterations to capture detailed features
+
+    implicitFeatureSnap false;
+    explicitFeatureSnap true;
+    multiRegionFeatureSnap false;
+}
+
+
+// Settings for the layer addition.
+addLayersControls
+{
+    relativeSizes true;
+
+    layers
+    {
+        "(seed).*"
+        {
+            nSurfaceLayers 10;  // Increased to capture finer details
+        }
+    }
+
+    expansionRatio 1.1;  // Slower expansion for smoother layers
+    finalLayerThickness 0.000027;  // Adjusted to match the small thickness of the seed
+    minThickness 0.000007;  // Thinner layers for better fit
+    nOuterIter	3; // the layers will be built in 3 loops
+    nGrow 20;
+    featureAngle 30;
+    slipFeatureAngle 30;
+    nRelaxIter 20;
+    nSmoothSurfaceNormals 15;
+    nSmoothNormals 20;
+    nSmoothThickness 15;
+    maxFaceThicknessRatio 0.5;
+    maxThicknessToMedialRatio 0.3;
+    minMedialAxisAngle 90;
+    nBufferCellsNoExtrude 0;
+    nLayerIter 50;
+}
+
+
+// Generic mesh quality settings. At any undoable phase these determine
+// where to undo.
+meshQualityControls
+{
+    #include "meshQualityDict"
+    nSmoothScale 4;
+    errorReduction 0.75;
+}
+
+
+// Advanced
+
+writeFlags
+(
+    scalarLevels
+    layerSets
+    layerFields     // write volScalarField for layer coverage
+);
+
+mergeTolerance 1e-6;
+
+
+// ************************************************************************* //
