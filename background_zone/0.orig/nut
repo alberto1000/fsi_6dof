@@ -40,6 +40,16 @@ boundaryField
         value           uniform 0;
 
     }
+	
+	inlet
+    {
+        type            zeroGradient;
+    }
+
+    outlet
+    {
+        type            zeroGradient;    
+    }
 
 
 }

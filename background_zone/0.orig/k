@@ -40,10 +40,20 @@ boundaryField
         type            kqRWallFunction;
         value           $internalField;
     }
-    ".*"
+    
+	inlet
+    {
+        type            turbulentIntensityKineticEnergyInlet;
+        intensity       0.05;
+        value           $internalField;
+
+    }
+
+    outlet
     {
         type            zeroGradient;
     }
+
 }
 
 // ************************************************************************* //

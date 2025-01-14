@@ -31,11 +31,22 @@ boundaryField
         type            zeroGradient;
     }
 
-seed
-{
-    type            fixedValue;  
-    value           uniform 0;  
-}
+	seed
+	{
+		type            fixedValue;  
+		value           uniform 0;  
+	}
+	
+	inlet
+    {
+        type            fixedValue;
+        value           uniform 1e-5;
+    }
+
+    outlet
+    {
+        type            zeroGradient;
+    }
     
 }
 

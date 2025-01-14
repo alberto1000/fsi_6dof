@@ -40,9 +40,15 @@ boundaryField
         type            zeroGradient;  
     }
     
-     ".*"
+    inlet
     {
         type            zeroGradient;
+    }
+
+    outlet
+    {
+        type            fixedValue;
+        value           $internalField;
     }
 
 }

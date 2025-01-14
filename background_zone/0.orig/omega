@@ -38,9 +38,17 @@ boundaryField
         value           $internalField; 
     }
     
-    ".*"
+    inlet
+    {
+        type            turbulentMixingLengthFrequencyInlet;
+        mixingLength    0.035;
+        value           $internalField;
+
+    }
+
+    outlet
     {
         type            zeroGradient;
-    }
+    }         
 }
 

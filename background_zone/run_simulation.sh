@@ -19,13 +19,10 @@ blockMesh
 surfaceFeatureExtract 
 #sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
 decomposePar
-<<<<<<< HEAD
 mpirun -np 32 snappyHexMesh -parallel -overwrite
-#srun -n"$1" snappyHexMesh -parallel -overwrite
-=======
+# srun -n"$1" snappyHexMesh -parallel -overwrite
 # mpirun -np 32 snappyHexMesh -parallel -overwrite
-srun -n"$1" --cpu-bind=cores snappyHexMesh -parallel -overwrite
->>>>>>> 05c702bb7dbca1cc165657510aacb8d8846a2ca1
+# srun -n"$1" --cpu-bind=cores snappyHexMesh -parallel -overwrite
 reconstructParMesh -constant
 topoSet
 checkMesh
@@ -43,13 +40,13 @@ touch mesh_assembled.foam
 # Decompose domain and run simulation
 #sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
 decomposePar
-<<<<<<< HEAD
+
 mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
 #srun -n"$1" overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
-=======
+
 # mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
-srun -n"$1" --cpu-bind=cores overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
->>>>>>> 05c702bb7dbca1cc165657510aacb8d8846a2ca1
+#srun -n"$1" --cpu-bind=cores overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
+
 
 # Reconstruct final mesh and open ParaView for visualization
 # reconstructPar
