@@ -37,10 +37,10 @@ castellatedMeshControls
 {
 
     // Refinement parameters
-    maxLocalCells 2000;  // Increased to allow more cells
-    maxGlobalCells 247000; // Increase to refine smaller details
+    maxLocalCells 1500;  // Increased to allow more cells
+    maxGlobalCells 237000; // Increase to refine smaller details
 
-    minRefinementCells 3;  // Allow for finer refinement
+    minRefinementCells 2;  // Allow for finer refinement
 
     nCellsBetweenLevels 2;  // Finer control over the refinement levels
 

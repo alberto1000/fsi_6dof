@@ -17,10 +17,10 @@ cd ../component_zone
 ./Allclean
 blockMesh
 surfaceFeatureExtract 
-sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
+#sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
 decomposePar
-# mpirun -np 32 snappyHexMesh -parallel -overwrite
-srun -n"$1" snappyHexMesh -parallel -overwrite
+mpirun -np 32 snappyHexMesh -parallel -overwrite
+#srun -n"$1" snappyHexMesh -parallel -overwrite
 reconstructParMesh -constant
 topoSet
 checkMesh
@@ -36,10 +36,10 @@ checkMesh
 touch mesh_assembled.foam
 
 # Decompose domain and run simulation
-sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
+#sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
 decomposePar
-# mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
-srun -n"$1" overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
+mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
+#srun -n"$1" overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
 
 # Reconstruct final mesh and open ParaView for visualization
 # reconstructPar
