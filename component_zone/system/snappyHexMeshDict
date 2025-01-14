@@ -76,7 +76,7 @@ castellatedMeshControls
     {
     }
 
-    locationInMesh ( 0.00 0.00 0.015);  // Adjusted to ensure correct location in the mesh
+    locationInMesh (0.00 0.00 0.085);  // Adjusted to ensure correct location in the mesh
 
     allowFreeStandingZoneFaces true;
 }
