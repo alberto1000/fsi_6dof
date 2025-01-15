@@ -20,9 +20,9 @@ scale   1;
 outerRadius 0.15;
 
 // Divisions in x/y/z directions. Can be unequal.
-nx   6;
-ny   6;
-nz   6;
+nx   15;
+ny   15;
+nz   15;
 
 geometry
 {
@@ -51,7 +51,7 @@ vertices
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ($nx $ny $nz) grading (1 1 1.1)
+    hex (0 1 2 3 4 5 6 7) ($nx $ny $nz) grading (1 1 1)
 );
 
 edges

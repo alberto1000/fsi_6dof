@@ -37,12 +37,12 @@ castellatedMeshControls
 {
 
     // Refinement parameters
-    maxLocalCells 1500;  // Increased to allow more cells
-    maxGlobalCells 237000; // Increase to refine smaller details
+    maxLocalCells 5500;  // Increased to allow more cells
+    maxGlobalCells 250000; // Increase to refine smaller details
 
-    minRefinementCells 2;  // Allow for finer refinement
+    minRefinementCells 5;  // Allow for finer refinement
 
-    nCellsBetweenLevels 2;  // Finer control over the refinement levels
+    nCellsBetweenLevels 10;  // Finer control over the refinement levels
 
     // Explicit feature edge refinement
     features
@@ -76,7 +76,7 @@ castellatedMeshControls
     {
     }
 
-    locationInMesh (0.00 0.00 0.085);  // Adjusted to ensure correct location in the mesh
+    locationInMesh (0.00 0.00 0.0085);  // Adjusted to ensure correct location in the mesh
 
     allowFreeStandingZoneFaces true;
 }
@@ -135,7 +135,7 @@ addLayersControls
 meshQualityControls
 {
     #include "meshQualityDict"
-    nSmoothScale 4;
+    nSmoothScale 5;
     errorReduction 0.75;
 }
 
