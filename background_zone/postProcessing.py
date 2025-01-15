@@ -34,7 +34,7 @@ subprocess.run("paste time xcenter ycenter zcenter vx vy vz wx wy wz Co_mean Co_
 
 # Function to load the generated data from the first plotfile
 def load_data_():
-    plotfile_path = "/home/lollilol/Desktop/fsi_6dof/background_zone/plotfile"
+    plotfile_path = "./plotfile"
     
     # Attempt to load the data with error handling for inconsistent rows
     try:
@@ -80,7 +80,7 @@ def load_data_():
 
 # Function to load the generated data from the plotfile2
 def load_data():
-    plotfile_path = "/home/lollilol/Desktop/fsi_6dof/background_zone/plotfile2"
+    plotfile_path = "./plotfile2"
     
     # Attempt to load the data with error handling for inconsistent rows
     try:
@@ -143,8 +143,8 @@ yaw_deg = np.degrees(yaw)
 
 
 # Paths to the force and moment data files
-force_file_path = "/home/lollilol/Desktop/fsi_6dof/background_zone/postProcessing/forces/0/force.dat"
-moment_file_path = "/home/lollilol/Desktop/fsi_6dof/background_zone/postProcessing/forces/0/moment.dat"
+force_file_path = "./postProcessing/forces/0/force.dat"
+moment_file_path = "./postProcessing/forces/0/moment.dat"
 
 # Load the force data
 force_data = np.genfromtxt(force_file_path, skip_header=4, invalid_raise=False)
