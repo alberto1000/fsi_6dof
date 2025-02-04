@@ -13,14 +13,15 @@ FoamFile
     object      blockMeshDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+scale 0.25e1;
 
 vertices
 (
  // large domain
-    (-0.85 -0.85 -9.3)
-    (0.85 -0.85 -9.3)
-    (0.85  0.85 -9.3)
-    (-0.85  0.85 -9.3)
+    (-0.85 -0.85 -6.65)
+    (0.85 -0.85 -6.65)
+    (0.85  0.85 -6.65)
+    (-0.85  0.85 -6.65)
     (-0.85 -0.85 0.65)
     (0.85 -0.85 0.65)
     (0.85 0.85 0.65)
@@ -31,32 +32,28 @@ vertices
 blocks
 (
     // small domain block
-    hex (0 1 2 3 4 5 6 7) (45 45 350) 
-	simpleGrading
-	(
-	// x-direction expansion ratio
-	(
-		(0.15 0.15 1)
-		(0.7 0.7 1)
-		(0.15 0.15 1)
+    hex (0 1 2 3 4 5 6 7) (100 100 260) 
+	simpleGrading ((
+        (.2 .2 0.9)  // More cells in the middle in X direction
+        (0.75 0.95 1)  // More cells in the middle in Y direction
+        (.2 .2 0.9)  // More cells in the middle in Z direction 
+    	)
 
-	)
-	
-	// y-direction expansion ratio
-	(
-		(0.15 0.15 1)
-		(0.7 0.7 1)
-		(0.15 0.15 1)
-	)
-	
-	// z-direction expansion ratio  
-	(
-		(0.25 0.25 1)
-		(0.25 0.25 1)
-		(0.5 0.5 1)
-	)
-	)
+		(
+        (.2 .2 0.9)  // More cells in the middle in X direction
+        (0.75 0.95 1)  // More cells in the middle in Y direction
+        (.2 .2 0.9)  // More cells in the middle in Z direction 
+    	)
 
+		(
+        (1 1 1)  // More cells in the middle in X direction
+        (1 1 1)  // More cells in the middle in Y direction
+        (1 1 1)  // More cells in the middle in Z direction 
+    	)
+
+
+	
+	)
 );
 
 edges
@@ -72,31 +69,16 @@ boundary
         type wall;
         faces
         (
-            
 	    (2 6 5 1)
 	    (0 4 7 3)
 	    (3 7 6 2)
         (1 5 4 0)
-	    
+	    (0 3 2 1)
+		(4 5 6 7)
         );
     }
-    inlet
-    {
-        type patch;
-        faces
-        (
-            (0 3 2 1)
-        );
-    }
-
-    outlet
-    {
-        type patch;
-        faces
-        (
-            (4 5 6 7)
-        );
-    }
+   
+    
   
 );
 
