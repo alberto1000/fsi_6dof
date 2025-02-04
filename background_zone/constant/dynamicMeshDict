@@ -29,13 +29,13 @@ sixDoFRigidBodyMotionCoeffs
     outerDistance       9;
     centreOfMass        (0 0 0);
     mass                5.5e-05;
-    momentOfInertia     (1.74403669210059e-09 3.16070864100764e-10 2.027012473404723e-09);
+    momentOfInertia     (1.75875617e-09 3.16733146e-10 2.04235612e-09);
     velocity            (0 0 0);
-    angularMomentum     (0 0 4.10e-08);
+    angularMomentum     (0 0 2.10e-08);
     rho                 rhoInf;
     rhoInf              1.225;
-    accelerationRelaxation 0.95;
-	accelerationDamping	1;
+    accelerationRelaxation 1;
+    accelerationDamping	1;
     report              on;
     reportToFile        on;
     g                   (0 0 -9.81); 
