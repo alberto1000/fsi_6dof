@@ -15,7 +15,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-/*
 ddtSchemes
 {
     default CrankNicolson 0.5;
@@ -23,224 +22,29 @@ ddtSchemes
 
 gradSchemes
 {
-    //default         leastSquares;
-	default         Gauss linear;
-    grad(p)         Gauss linear limited 0.5;
-	//default cellMDLimited Gauss linear 0.5;
-	//grad(U) cellMDLimited Gauss linear 0.5;
-}
-
-divSchemes
-{
-    default          none;
-    div(phi,U)     	 Gauss linearUpwind grad(U);
-	div(phi,k)       Gauss linearUpwind grad(k);
-    div(phi,epsilon) Gauss linearUpwind grad(epsilon);
-    div(phi,omega)   Gauss linearUpwind grad(omega);
- 	div(div(phi,U))  Gauss linearUpwind grad(U);
-    div((nuEff*dev2(T(grad(U))))) Gauss linear;
-}
-
-
-laplacianSchemes
-{
-    default         Gauss linear limited 0.777;
-}
-
-interpolationSchemes
-{
-    default         linear;
-}
-
-snGradSchemes
-{ 
-    default         limited 0.777; //corrected
-}
-
-oversetInterpolation
-{
-    method          inverseDistance;
-    holeLayers          1;
-    useLayer            1;
-}
-
-fluxRequired
-{
-    default         no;
-    pcorr           ;
-    p               ;
-}
-
-wallDist
-{
-    method meshWave;
-}
-*/
-/*
-
-ddtSchemes
-{
-    default         Euler;
-}
-
-gradSchemes
-{
-    default         Gauss linear;
-}
-
-divSchemes
-{
-    default         none;
-    div(phi,U)      Gauss upwind;
-
-    div(phi,omega) bounded Gauss upwind;
-    div(phi,k)       Gauss limitedLinear 1;
-
-    div((nuEff*dev2(T(grad(U))))) Gauss linear;
-}
-
-laplacianSchemes
-{
-    default         Gauss linear corrected;
-    laplacian(diffusivity,cellDisplacement)  Gauss linear corrected;
-   // laplacian(yPsi) <laplacian scheme>;
-}
-
-interpolationSchemes
-{
-    default         linear;
-}
-
-snGradSchemes
-{
-    default         corrected;
-}
-
-oversetInterpolation
-{
-    // Faster but less accurate
-    method              trackingInverseDistance;
-    //searchBox           (-0.2 -0.2 -0.25)(0.2 0.02 0.25);
-    searchBoxDivisions  2{(64 64 64)};
-    allowInterpolatedDonors     false;
-}
-
-fluxRequired
-{
-    default         no;
-    pcorr           ;
-    p               ;
-}
-
-oversetInterpolationSuppressed
-{
-    grad(p);
-    surfaceIntegrate(phiHbyA);
-}
-
-
-wallDist
-{
-    method meshWave;
-}
-*/
-
-//6DOF NON FUNZIONANTE
-/*
-ddtSchemes
-{
-    default CrankNicolson 0.5;
-}
-
-gradSchemes
-{
-    //default         leastSquares;
-	default         Gauss linear;
-    grad(p)         Gauss linear limited 0.65;
-	//default cellMDLimited Gauss linear 0.5;
-	//grad(U) cellMDLimited Gauss linear 0.5;
-}
-
-divSchemes
-{
-    default          none;
-    div(phi,U)     	 Gauss linearUpwind grad(U);
-	div(phi,k)       Gauss linearUpwind grad(k);
-    div(phi,epsilon) Gauss linearUpwind grad(epsilon);
-    div(phi,omega)   Gauss linearUpwind grad(omega);
- 	div(div(phi,U))  Gauss linearUpwind grad(U);
-    div((nuEff*dev2(T(grad(U))))) Gauss linear;
-}
-
-
-laplacianSchemes
-{
-    default         Gauss linear limited 0.65;
-}
-
-interpolationSchemes
-{
-    default         linear;
-}
-
-snGradSchemes
-{ 
-    default         limited 0.65; //corrected
-}
-
-oversetInterpolation
-{
-    method          inverseDistance;
-    holeLayers          1;
-    useLayer            1;
-}
-
-fluxRequired
-{
-    default         no;
-    pcorr           ;
-    p               ;
-}
-
-wallDist
-{
-    method meshWave;
-}
-
-//6DOF NON FUNZIONANTE FINE
-*/
-
-
-
-ddtSchemes
-{
-    default CrankNicolson 0.5;
-}
-
-gradSchemes
-{
-    //default         leastSquares;
+	default cellLimited Gauss linear 1;
+    	//default         leastSquares;
 	//default         Gauss linear;
-    //grad(p)         Gauss linear limited 0.5;
-	default cellMDLimited Gauss linear 0.5;
-	grad(U) cellMDLimited Gauss linear 0.5;
+    	//grad(p)         Gauss linear limited 0.5;
+	//default cellMDLimited Gauss linear 0.5;
+	//grad(U) cellMDLimited Gauss linear 0.5;
 }
 
 divSchemes
 {
-    default          none;
-    div(phi,U)     	 Gauss limitedLinearV 1;
+    	default          none;
+    	div(phi,U)       Gauss linearUpwindV grad(U);
 	div(phi,k)       Gauss linearUpwind default;
-    div(phi,epsilon) Gauss linearUpwind default;
-    div(phi,omega)   Gauss linearUpwind default;
- 	div(div(phi,U))  Gauss limitedLinearV 1;
-    div((nuEff*dev2(T(grad(U))))) Gauss linear;
+    	div(phi,epsilon) Gauss linearUpwind default;
+    	div(phi,omega)   Gauss linearUpwind default;
+ 	div(div(phi,U))  Gauss linearUpwind 1;
+    	div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 
 
 laplacianSchemes
 {
-    default         Gauss linear limited 1;
+    default         Gauss linear limited 0.5;
 }
 
 interpolationSchemes
@@ -250,14 +54,15 @@ interpolationSchemes
 
 snGradSchemes
 { 
-    default         limited 1; //corrected
+    default         limited 0.5;
 }
 
 oversetInterpolation
 {
-    method          inverseDistance;
-    holeLayers          1;
-    useLayer            1;
+    method          leastSquares;
+    //method          inverseDistance;
+    //holeLayers          1;
+    //useLayer            1;
 }
 
 fluxRequired
@@ -269,5 +74,6 @@ fluxRequired
 
 wallDist
 {
-    method meshWave;
+    //method meshWave;
+    method Poisson;
 }

@@ -41,7 +41,10 @@ sixDoFRigidBodyMotionCoeffs
     g                   (0 0 -9.81); 
     solver
     {
-        type            CrankNicolson;
+        //type            CrankNicolson;
+        type            Newmark;
+        gamma   0.5;    // Velocity integration coefficient
+	beta    0.25;   // Position integration coefficient
     }
 
 

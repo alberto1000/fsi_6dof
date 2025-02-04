@@ -19,13 +19,12 @@ blockMesh
 surfaceFeatureExtract 
 #sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
 decomposePar
-mpirun -np 32 snappyHexMesh -parallel -overwrite
+mpirun -np 32 snappyHexMesh -parallel -overwrite | tee log.snappy
 # srun -n"$1" snappyHexMesh -parallel -overwrite
-# mpirun -np 32 snappyHexMesh -parallel -overwrite
-# srun -n"$1" --cpu-bind=cores snappyHexMesh -parallel -overwrite
 reconstructParMesh -constant
 topoSet
 checkMesh
+rm -rf processor*
 touch mesh_component.foam
 
 # Merge component and background meshes and finalize setup
@@ -39,16 +38,9 @@ touch mesh_assembled.foam
 
 # Decompose domain and run simulation
 #sed -i "/numberOfSubdomains/s/[0-9]\+/$1/g" system/decomposeParDict
-decomposePar
-
-mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
-#srun -n"$1" overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
-
-# mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
-#srun -n"$1" --cpu-bind=cores overPimpleDyMFoam -parallel | tee $WORK/LOLLI/log.seed_6dof"$1"
-
+decomposePar -force
+srun -n"$1" --cpu-bind=cores --distribution=block:cyclic overPimpleDyMFoam -parallel | tee log.simulation
 
 # Reconstruct final mesh and open ParaView for visualization
 reconstructParMesh
 foamListTimes  -processor > log.foamTimes; awk 'NR%4==1' log.foamTimes | parallel --halt=0 -j8 reconstructPar -newTimes -time {}:
-# paraFoam
