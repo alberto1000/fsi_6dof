@@ -151,6 +151,15 @@ solvers
         tolerance       1e-6;
         relTol          0;
     }
+
+	yPsi
+    {
+        solver          smoothSolver;
+        smoother        GaussSeidel;
+        tolerance       1e-7;
+        relTol          0;
+    }
+
 }
 
 

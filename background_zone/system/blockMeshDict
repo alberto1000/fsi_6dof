@@ -13,7 +13,7 @@ FoamFile
     object      blockMeshDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-scale 0.25e1;
+scale 0.1e1;
 
 vertices
 (
@@ -32,7 +32,7 @@ vertices
 blocks
 (
     // small domain block
-    hex (0 1 2 3 4 5 6 7) (100 100 260) 
+    hex (0 1 2 3 4 5 6 7) (80 80 160) 
 	simpleGrading ((
         (.2 .2 0.9)  // More cells in the middle in X direction
         (0.75 0.95 1)  // More cells in the middle in Y direction

@@ -28,8 +28,23 @@ geometry
         type triSurfaceMesh;
         name seed;
     }
-    
+   refinementBox
+        {
+        type box;
+        min (-0.1 -1 0.05);
+        max (0.1 0.1 0.2);
+        }
 }
+
+
+    refinementRegions
+    {
+        refinementBox
+        {
+                mode inside;
+                levels ((1E15 5));
+        }
+    }
 
 
 // Settings for the castellatedMesh generation.
@@ -37,19 +52,19 @@ castellatedMeshControls
 {
 
     // Refinement parameters
-    maxLocalCells 5500;  // Increased to allow more cells
-    maxGlobalCells 250000; // Increase to refine smaller details
+    maxLocalCells 40000;  // Increased to allow more cells
+    maxGlobalCells 700000; // Increase to refine smaller details
 
     minRefinementCells 5;  // Allow for finer refinement
 
-    nCellsBetweenLevels 10;  // Finer control over the refinement levels
+    nCellsBetweenLevels 5;  // Finer control over the refinement levels
 
     // Explicit feature edge refinement
     features
     (
         {
             file "seed.eMesh";
-            level 4; // 8
+            level 8; // 8
         }
     );
 
@@ -59,7 +74,7 @@ castellatedMeshControls
         seed
         {
             // Surface-wise min and max refinement level
-            level (20 21);  // (11 12) 
+            level (35 36);  // (11 12) 
 
             patchInfo
             {
@@ -76,7 +91,7 @@ castellatedMeshControls
     {
     }
 
-    locationInMesh (0.00 0.00 0.0085);  // Adjusted to ensure correct location in the mesh
+    locationInMesh (0.00 0.00 0.185);  // Adjusted to ensure correct location in the mesh
 
     allowFreeStandingZoneFaces true;
 }
@@ -112,7 +127,7 @@ addLayersControls
     }
 
     expansionRatio 1.1;  // Slower expansion for smoother layers
-    finalLayerThickness 0.000027;  // Adjusted to match the small thickness of the seed
+    finalLayerThickness 0.00027;  // Adjusted to match the small thickness of the seed
     minThickness 0.000007;  // Thinner layers for better fit
     nOuterIter	3; // the layers will be built in 3 loops
     nGrow 20;

@@ -1,7 +1,7 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  v2412                                 |
+|  \\    /   O peration     | Version:  v2406                                 |
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
@@ -14,73 +14,50 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-scale   1;
-
-// Geometric parameters
-outerRadius 0.15;
-
-// Divisions in x/y/z directions. Can be unequal.
-nx   15;
-ny   15;
-nz   15;
-
-geometry
-{
-    sphere
-    {
-        type   sphere;
-        origin (0 0 0);
-        radius $outerRadius;
-    }
-}
-
-// Box size
-vo   #eval{ $outerRadius/sqrt(3) };
-
 vertices
 (
-    (-$vo -$vo -$vo)
-    ( $vo -$vo -$vo)
-    ( $vo  $vo -$vo)
-    (-$vo  $vo -$vo)
-    (-$vo -$vo  $vo)
-    ( $vo -$vo  $vo)
-    ( $vo  $vo  $vo)
-    (-$vo  $vo  $vo)
+ // large domain
+    (-0.2 -0.2 -0.2)
+    (0.2 -0.2 -0.2)
+    (0.2  0.2 -0.2)
+    (-0.2  0.2 -0.2)
+    (-0.2 -0.2 0.2)
+    (0.2 -0.2 0.2)
+    (0.2 0.2 0.2)
+    (-0.2  0.2 0.2)
+
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ($nx $ny $nz) grading (1 1 1)
-);
+    // small domain block
+    hex (0 1 2 3 4 5 6 7) (80 80 80) 
+	simpleGrading ((
+        (.2 .2 0.9)  // More cells in the middle in X direction
+        (0.75 0.95 1)  // More cells in the middle in Y direction
+        (.2 .2 0.9)  // More cells in the middle in Z direction 
+    	)
 
+		(
+        (.2 .2 0.9)  // More cells in the middle in X direction
+        (0.75 0.95 1)  // More cells in the middle in Y direction
+        (.2 .2 0.9)  // More cells in the middle in Z direction 
+    	)
+
+		(
+        (1 1 1)  // More cells in the middle in X direction
+        (1 1 1)  // More cells in the middle in Y direction
+        (1 1 1)  // More cells in the middle in Z direction 
+    	)
+
+
+	
+	)
+);
 edges
 (
-    arc 0 1 origin (0 0 0)
-    arc 2 3 origin (0 0 0)
-    arc 6 7 origin (0 0 0)
-    arc 4 5 origin (0 0 0)
-
-    arc 0 3 origin (0 0 0)
-    arc 1 2 origin (0 0 0)
-    arc 5 6 origin (0 0 0)
-    arc 4 7 origin (0 0 0)
-
-    arc 0 4 origin (0 0 0)
-    arc 1 5 origin (0 0 0)
-    arc 2 6 origin (0 0 0)
-    arc 3 7 origin (0 0 0)
 );
 
-faces
-(
-    project (0 0) sphere  // x-min
-    project (0 1) sphere  // x-max
-    project (0 2) sphere  // y-min
-    project (0 3) sphere  // y-max
-    project (0 4) sphere  // z-min
-    project (0 5) sphere  // z-max
-);
 
 boundary
 (
@@ -89,12 +66,20 @@ boundary
         type overset;
         faces
         (
-            (0 0)  // x-min
-            (0 1)  // x-max
-            (0 2)  // y-min
-            (0 3)  // y-max
-            (0 4)  // z-min
-            (0 5)  // z-max
+            
+	    (2 6 5 1)
+	    (0 4 7 3)
+	    (3 7 6 2)
+            (1 5 4 0)
+	    (4 5 6 7)
+	    (0 3 2 1)
         );
     }
+
+   
+  
 );
+
+
+// ************************************************************************* //
+

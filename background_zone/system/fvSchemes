@@ -229,18 +229,18 @@ gradSchemes
 divSchemes
 {
     default          none;
-    div(phi,U)     	 Gauss limitedLinearV 0.65;
+    div(phi,U)     	 Gauss limitedLinearV 1;
 	div(phi,k)       Gauss linearUpwind default;
     div(phi,epsilon) Gauss linearUpwind default;
     div(phi,omega)   Gauss linearUpwind default;
- 	div(div(phi,U))  Gauss limitedLinearV 0.65;
+ 	div(div(phi,U))  Gauss limitedLinearV 1;
     div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 
 
 laplacianSchemes
 {
-    default         Gauss linear limited 0.65;
+    default         Gauss linear limited 1;
 }
 
 interpolationSchemes
@@ -250,7 +250,7 @@ interpolationSchemes
 
 snGradSchemes
 { 
-    default         limited 0.65; //corrected
+    default         limited 1; //corrected
 }
 
 oversetInterpolation

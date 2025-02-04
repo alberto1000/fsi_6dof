@@ -49,5 +49,6 @@ mpirun -np 32 overPimpleDyMFoam -parallel | tee log.simulation
 
 
 # Reconstruct final mesh and open ParaView for visualization
-# reconstructPar
+reconstructParMesh
+foamListTimes  -processor > log.foamTimes; awk 'NR%4==1' log.foamTimes | parallel --halt=0 -j8 reconstructPar -newTimes -time {}:
 # paraFoam

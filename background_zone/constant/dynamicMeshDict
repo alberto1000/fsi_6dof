@@ -25,8 +25,8 @@ diffusivity         quadratic inverseDistance 1 ( seed );
 sixDoFRigidBodyMotionCoeffs
 {
     patches             ( seed );
-    innerDistance       8; 
-    outerDistance       9;
+    innerDistance       15; 
+    outerDistance       20;
     centreOfMass        (0 0 0);
     mass                5.5e-05;
     momentOfInertia     (1.75875617e-09 3.16733146e-10 2.04235612e-09);
