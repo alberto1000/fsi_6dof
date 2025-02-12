@@ -68,27 +68,32 @@ solvers
 
 	yPsi
     {
-        solver          smoothSolver;
-        smoother        GaussSeidel;
-        tolerance       1e-7;
+        solver          PBiCGStab;
+        preconditioner  DILU;
+        tolerance       1e-5;
         relTol          0;
     }
 
+    yPsiFinal
+    {
+         $yPsi
+         relTol     0;
+    }
 }
 
-oversetInterpolationRequired
-{
-	k;
-	omega;
-	nut; 
-	epsilon;
-}
+//oversetInterpolationRequired
+//{
+//	k;
+//	omega;
+//	nut; 
+//	epsilon;
+//}
 
 PIMPLE
 {
     momentumPredictor   true;
     correctPhi		false;
-    oversetAdjustPhi    false;
+    oversetAdjustPhi    false;	//setting to true caused SPURIOUS OSCILLATIONS in U
     nOuterCorrectors    3;
     nCorrectors         3;
     nNonOrthogonalCorrectors 2;
@@ -123,7 +128,10 @@ relaxationFactors
     }
     equations
     {
-        "(U|k|omega)"   0.7;
+        "U.*"        0.7;
+        "omega.*" 	0.5;
+        "k.*" 	0.5;
+        //"(U|k|omega)"   0.7;
         //".*Final"        0.9;
     }
 }

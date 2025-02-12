@@ -17,7 +17,8 @@ FoamFile
 
 ddtSchemes
 {
-    default CrankNicolson 0.5;
+    //default CrankNicolson 0.5;
+    default Euler;
 }
 
 gradSchemes
@@ -37,14 +38,15 @@ divSchemes
 	div(phi,k)       Gauss linearUpwind default;
     	div(phi,epsilon) Gauss linearUpwind default;
     	div(phi,omega)   Gauss linearUpwind default;
- 	div(div(phi,U))  Gauss linearUpwind 1;
+ 	div(div(phi,U))  Gauss linearUpwind default;
     	div((nuEff*dev2(T(grad(U))))) Gauss linear;
 }
 
 
 laplacianSchemes
 {
-    default         Gauss linear limited 0.5;
+    	default         Gauss linear limited 0.5;
+	laplacian(yPsi) Gauss linear corrected;
 }
 
 interpolationSchemes
@@ -59,8 +61,9 @@ snGradSchemes
 
 oversetInterpolation
 {
-    method          leastSquares;
-    //method          inverseDistance;
+    //method          leastSquares;
+    method          inverseDistance;
+    //method            cellVolumeWeight;
     //holeLayers          1;
     //useLayer            1;
 }
@@ -74,6 +77,6 @@ fluxRequired
 
 wallDist
 {
-    //method meshWave;
-    method Poisson;
+    method meshWave;
+    //method Poisson;
 }

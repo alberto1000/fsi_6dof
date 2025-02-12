@@ -31,8 +31,14 @@ geometry
    refinementBox
         {
         type box;
-        min (-0.05 -0.05 0.01);
-        max (0.05 0.05 0.2);
+        min (-0.075 -0.075 -0.02);
+        max (0.075 0.075 0.09);
+        }
+   refinementBox2
+        {
+        type box;
+        min (-0.01 0.025 -0.02);
+        max (0.01 0.2  0.02);
         }
 }
 
@@ -82,8 +88,13 @@ castellatedMeshControls
         refinementBox
         {
                 mode inside;
-                levels ((1E15 1));
+                levels ((1E15 2));
         }
+        //refinementBox2
+        //{
+        //        mode inside;
+        //        levels ((1E15 1));
+        //}
     }
 
     locationInMesh (0.0023 0.0023 0.185);  // Adjusted to ensure correct location in the mesh

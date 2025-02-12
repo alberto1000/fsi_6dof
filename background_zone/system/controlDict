@@ -18,18 +18,23 @@ libs            ("liboverset.so");
 
 application     overPimpleDyMFoam;
 
-startFrom       latestTime;
+//startFrom       latestTime;
+startFrom       startTime;
+
 
 
 stopAt          endTime;
 
-endTime         4;
+startTime	0;
+endTime         2.0;
 
 deltaT          1e-3;
 
+//writeControl    timeStep;
+//writeInterval   1;
 
 writeControl    adjustableRunTime;
-writeInterval   0.1;
+writeInterval   0.05;
 
 purgeWrite      0;
 
@@ -47,7 +52,7 @@ runTimeModifiable true;
 
 adjustTimeStep  true;
 
-maxCo 		5;
+maxCo 		1.0;
 
 functions
 {

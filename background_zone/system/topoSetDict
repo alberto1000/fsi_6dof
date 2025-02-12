@@ -23,7 +23,7 @@ actions
         source  regionToCell;
         sourceInfo
         {
-            insidePoints ((-0.1 -0.1 0.5));
+            insidePoints ((-0.1 -0.1 -0.5));
         }
     }
 

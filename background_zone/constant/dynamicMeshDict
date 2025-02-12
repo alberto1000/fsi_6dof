@@ -31,7 +31,7 @@ sixDoFRigidBodyMotionCoeffs
     mass                5.5e-05;
     momentOfInertia     (1.75875617e-09 3.16733146e-10 2.04235612e-09);
     velocity            (0 0 0);
-    angularMomentum     (0 0 2.10e-08);
+    angularMomentum     (0 0 2.04e-08);
     rho                 rhoInf;
     rhoInf              1.225;
     accelerationRelaxation 1;
@@ -41,10 +41,11 @@ sixDoFRigidBodyMotionCoeffs
     g                   (0 0 -9.81); 
     solver
     {
+	type		symplectic;
         //type            CrankNicolson;
-        type            Newmark;
-        gamma   0.5;    // Velocity integration coefficient
-	beta    0.25;   // Position integration coefficient
+        //type            Newmark;
+        //gamma   0.5;    // Velocity integration coefficient
+	//beta    0.25;   // Position integration coefficient
     }
 
 
